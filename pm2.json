@@ -1,0 +1,15 @@
+{
+  "apps": [{
+    "name": "node-server",
+    "script": "production.js",
+    "cwd": "D:\sources\vscode-workspace\node-server",
+    "exec_mode": "fork",
+    "max_memory_restart": "1G",
+    "autorestart": true,
+    "node_args": [],
+    "args": [],
+    "env": {
+      
+    }
+  }]
+}
