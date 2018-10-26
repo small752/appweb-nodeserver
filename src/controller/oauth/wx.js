@@ -12,15 +12,16 @@ module.exports = class extends Base {
     if(code == undefined || code == ''){
       let oauthConfig = this.config('oauth');
 
+      let urlConfig = this.config('url');
+
       console.info('oauthConfig', oauthConfig);
 
       let appid = oauthConfig.wx.appid;
 
-      let currentUrl = 'http://127.0.0.1:8301/appweb/oauth/wx/index';
+      let currentUrl = urlConfig.currenturl + '/oauth/wx/index';
 
       console.info(encodeURIComponent(currentUrl));
-
-      let urlConfig = this.config('url');
+      
       let wxOuthRedirectUrl = urlConfig.currenturl + '/oauth/wx/apply?appid=' + appid + '&scope=snsapi_base&rd=' + encodeURIComponent(currentUrl);
       this.ctx.status = 302;
       this.ctx.redirect(wxOuthRedirectUrl);
