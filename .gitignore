@@ -61,3 +61,4 @@ typings/
 .next
 
 runtime/
+./package-lock.json
