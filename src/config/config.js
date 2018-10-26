@@ -4,7 +4,7 @@ module.exports = {
   port: 8301,
 
   url: {
-    currenturl: 'http://www.yana.site/appweb'
+    currenturl: 'https://www.yana.site/appweb'
   },
   oauth: {
     wx: {
