@@ -22,7 +22,7 @@ module.exports = class extends Base {
 
       console.info(encodeURIComponent(currentUrl));
       
-      let wxOuthRedirectUrl = urlConfig.currenturl + '/oauth/wx/apply?appid=' + appid + '&scope=snsapi_base&rd=' + encodeURIComponent(currentUrl);
+      let wxOuthRedirectUrl = urlConfig.currenturl + '/oauth/wx/apply?appid=' + appid + '&scope=snsapi_userinfo&rd=' + encodeURIComponent(currentUrl);
       this.ctx.status = 302;
       this.ctx.redirect(wxOuthRedirectUrl);
     } else {
