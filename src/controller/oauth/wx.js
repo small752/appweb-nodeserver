@@ -19,7 +19,9 @@ module.exports = class extends Base {
       let currentUrl = 'http://127.0.0.1:8301/appweb/oauth/wx/index';
 
       console.info(encodeURIComponent(currentUrl));
-      let wxOuthRedirectUrl = 'http://127.0.0.1:8301/appweb/oauth/wx/apply?appid=' + appid + '&scope=snsapi_base&rd=' + encodeURIComponent(currentUrl);
+
+      let urlConfig = this.config('url');
+      let wxOuthRedirectUrl = urlConfig.currenturl + '/oauth/wx/apply?appid=' + appid + '&scope=snsapi_base&rd=' + encodeURIComponent(currentUrl);
       this.ctx.status = 302;
       this.ctx.redirect(wxOuthRedirectUrl);
     } else {

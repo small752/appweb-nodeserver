@@ -3,9 +3,12 @@ module.exports = {
   workers: 1,
   port: 8301,
 
+  url: {
+    currenturl: 'http://www.yana.site/appweb'
+  },
   oauth: {
     wx: {
-      appid: 'wx6f6be839e637cc87',
+      appid: 'wx58c51882fdcb2dc8',
     }
   }
 };
