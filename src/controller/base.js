@@ -7,10 +7,7 @@ module.exports = class extends think.Controller {
 
   async _postJson(url, data) {
 
-    let headers = { 
-      'Content-Type': 'application/json' , 
-      referer : this.ctx.request.header.referer || undefined 
-    };
+    let headers = {};
 
     let params = new FormData();
 		Object.keys(data).forEach(function(k) {
@@ -23,7 +20,6 @@ module.exports = class extends think.Controller {
         method: 'POST', 
         headers,
         body: params,
-        dataType: 'json',
       }
     ).then(res => res.json());
 
