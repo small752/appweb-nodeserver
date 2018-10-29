@@ -5,6 +5,11 @@ const Base = require('../base.js');
  */
 module.exports = class extends Base {
 
+  tAction() {
+    console.info('ctx.protocol', this.ctx.protocol, this.ctx.href);
+    return this.display('index_index');
+  }
+
   testAction() {
     let openid = this.ctx.post('openid');
 
@@ -15,6 +20,8 @@ module.exports = class extends Base {
       let scope = oauthConfig.wx.scope_userinfo;
 
       let urlConfig = this.config('url');
+
+      
 
       let oauthRedirectUrl = urlConfig.currenturl + '/oauth/wx/index?scope=' + scope + '&rd=' + encodeURIComponent(this.ctx.href);
       this.ctx.status = 302;
