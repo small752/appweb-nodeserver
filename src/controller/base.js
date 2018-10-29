@@ -1,4 +1,4 @@
-import FormData from 'form-data';
+const FormData = require('form-data');
 
 module.exports = class extends think.Controller {
   __before() {
