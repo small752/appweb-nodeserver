@@ -16,7 +16,7 @@ module.exports = class extends Base {
 
       let urlConfig = this.config('url');
 
-      let oauthRedirectUrl = urlConfig.currenturl + '/oauth/wx/index?scope=' + scope + '&rd=' + encodeURIComponent(currentUrl);
+      let oauthRedirectUrl = urlConfig.currenturl + '/oauth/wx/index?scope=' + scope + '&rd=' + encodeURIComponent(this.ctx.href);
       this.ctx.status = 302;
       this.ctx.redirect(oauthRedirectUrl);
     } else {
