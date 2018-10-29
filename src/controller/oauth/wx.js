@@ -48,7 +48,7 @@ module.exports = class extends Base {
     } else {
       
       //根据code获取access_token
-      let codeTokenRes = this._postJson('https://api.weixin.qq.com/sns/oauth2/access_token', {
+      let codeTokenRes = await this._postJson('https://api.weixin.qq.com/sns/oauth2/access_token', {
         appid: oauthConfig.wx.appid,
         secret: oauthConfig.wx.appsecret,
         code,
