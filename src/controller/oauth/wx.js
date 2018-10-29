@@ -69,13 +69,13 @@ module.exports = class extends Base {
       });
 
       console.info('wxOauthCacheKey', wxOauthCacheKey);
-      
+
       this.ctx.type = 'text/html; charset=utf-8';
       this.body = '\
       <html>\
         <head>\
         </head>\
-        <body onload=\"document.getElementById(\'autoForm\').submit();\">\
+        <body >\
           <form id=\"autoForm\" method=\"post\" action=\"'+rd+'\" >\
             <input type="hidden" name="openid" value="' + codeTokenRes.openid + '" /> \
           </form>\
