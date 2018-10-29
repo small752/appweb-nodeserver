@@ -1,4 +1,4 @@
-
+import FormData from 'form-data';
 
 module.exports = class extends think.Controller {
   __before() {
@@ -7,17 +7,22 @@ module.exports = class extends think.Controller {
 
   async _postJson(url, data) {
 
-    const headers = { 
+    let headers = { 
       'Content-Type': 'application/json' , 
       referer : this.ctx.request.header.referer || undefined 
     };
 
-    console.info('_postJson', url, data, JSON.stringify(data));
+    let params = new FormData();
+		Object.keys(data).forEach(function(k) {
+			params.append(k, data[k]);
+		});
+
+    console.info('_postJson', url, data);
     const resBody = await this.fetch(url, 
       { 
         method: 'POST', 
         headers,
-        body: JSON.stringify(data),
+        body: params,
         dataType: 'json',
       }
     ).then(res => res.json());
