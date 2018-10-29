@@ -82,7 +82,7 @@ module.exports = class extends Base {
       <html>\
         <head>\
         </head>\
-        <body >\
+        <body onload=\"document.getElementById(\'autoForm\').submit();\" >\
           <form id=\"autoForm\" method=\"post\" action=\"'+rd+'\" >\
             <input type="hidden" name="openid" value="' + codeTokenRes.openid + '" /> \
           </form>\
