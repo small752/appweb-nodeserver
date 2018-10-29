@@ -6,7 +6,7 @@ const Base = require('../base.js');
 module.exports = class extends Base {
 
   testAction() {
-    let openid = this.get('openid');
+    let openid = this.ctx.post('openid');
 
     console.info('openid', openid);
 
@@ -20,31 +20,66 @@ module.exports = class extends Base {
       this.ctx.status = 302;
       this.ctx.redirect(oauthRedirectUrl);
     } else {
+      this.assign('openid', openid);
       return this.display('index_index');
     }
     
   }
 
-  indexAction() {
+  async indexAction() {
     let code = this.get('code');
     let scope = this.get('scope');
     let rd = this.get('rd');
 
     console.info('oauthindex', code, scope, rd);
 
+    let oauthConfig = this.config('oauth');
+    let urlConfig = this.config('url');
+
     if(code == undefined || code == '') {
-      let oauthConfig = this.config('oauth');
-
-      let urlConfig = this.config('url');
-
+      
       let appid = oauthConfig.wx.appid;
       scope = scope || oauthConfig.wx.scope_base;
       
-      let wxOuthRedirectUrl = urlConfig.currenturl + '/oauth/wx/apply?appid=' + appid + '&scope=' + scope + '&rd=' + encodeURIComponent(rd);
+      let rdUrl = urlConfig.currenturl + '/oauth/wx/index?scope=' + scope + 'rd=' + encodeURIComponent(rd);
+      let wxOuthRedirectUrl = urlConfig.currenturl + '/oauth/wx/apply?appid=' + appid + '&scope=' + scope + '&rd=' + encodeURIComponent(rdUrl);
       this.ctx.status = 302;
       this.ctx.redirect(wxOuthRedirectUrl);
     } else {
-      return this.display('index_index');
+      
+      //根据code获取access_token
+      let codeTokenRes = this._postJson('https://api.weixin.qq.com/sns/oauth2/access_token', {
+        appid: oauthConfig.wx.appid,
+        secret: oauthConfig.wx.appsecret,
+        code,
+        grant_type: 'authorization_code',
+      });
+
+      console.info('codeTokenRes', codeTokenRes);
+
+      //根据openid缓存微信授权信息
+      let wxOauthCacheKey = 'wxoauth_' + codeTokenRes.openid;
+      await this.cache(wxOauthCacheKey, {
+        openid: codeTokenRes.openid,
+        scope: codeTokenRes.scope,
+        refresh_token: codeTokenRes.refresh_token,
+        expires_in: codeTokenRes.expires_in,
+        access_token: codeTokenRes.access_token,
+        create_time: new Date().getTime(),
+      });
+
+      this.ctx.type = 'text/html; charset=utf-8';
+      this.body = '\
+      <html>\
+        <head>\
+        </head>\
+        <body onload=\"document.getElementById(\'autoForm\').submit();\">\
+          <form id=\"autoForm\" method=\"post\" action=\"'+rd+'\" >\
+            <input type="hidden" name="openid" value="' + codeTokenRes.openid + '" /> \
+          </form>\
+        </body>\
+      </html>\
+      ';
     }
     
   }
