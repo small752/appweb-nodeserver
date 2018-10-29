@@ -4,25 +4,43 @@ const Base = require('../base.js');
  * 微信授权相关页面
  */
 module.exports = class extends Base {
+
+  testAction() {
+    let openid = this.get('openid');
+
+    console.info('openid', openid);
+
+    if(openid == undefined || openid == ''){
+      let oauthConfig = this.config('oauth');
+      let scope = oauthConfig.wx.scope_userinfo;
+
+      let urlConfig = this.config('url');
+
+      let oauthRedirectUrl = urlConfig.currenturl + '/oauth/wx/index?scope=' + scope + '&rd=' + encodeURIComponent(currentUrl);
+      this.ctx.status = 302;
+      this.ctx.redirect(oauthRedirectUrl);
+    } else {
+      return this.display('index_index');
+    }
+    
+  }
+
   indexAction() {
     let code = this.get('code');
+    let scope = this.get('scope');
+    let rd = this.get('rd');
 
-    console.info('code', code);
+    console.info('oauthindex', code, scope, rd);
 
-    if(code == undefined || code == ''){
+    if(code == undefined || code == '') {
       let oauthConfig = this.config('oauth');
 
       let urlConfig = this.config('url');
 
-      console.info('oauthConfig', oauthConfig);
-
       let appid = oauthConfig.wx.appid;
-
-      let currentUrl = urlConfig.currenturl + '/oauth/wx/index';
-
-      console.info(encodeURIComponent(currentUrl));
+      scope = scope || oauthConfig.wx.scope_base;
       
-      let wxOuthRedirectUrl = urlConfig.currenturl + '/oauth/wx/apply?appid=' + appid + '&scope=snsapi_userinfo&rd=' + encodeURIComponent(currentUrl);
+      let wxOuthRedirectUrl = urlConfig.currenturl + '/oauth/wx/apply?appid=' + appid + '&scope=' + scope + '&rd=' + encodeURIComponent(rd);
       this.ctx.status = 302;
       this.ctx.redirect(wxOuthRedirectUrl);
     } else {
