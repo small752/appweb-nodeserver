@@ -41,7 +41,7 @@ module.exports = class extends Base {
       let appid = oauthConfig.wx.appid;
       scope = scope || oauthConfig.wx.scope_base;
       
-      let rdUrl = urlConfig.currenturl + '/oauth/wx/index?scope=' + scope + 'rd=' + encodeURIComponent(rd);
+      let rdUrl = urlConfig.currenturl + '/oauth/wx/index?scope=' + scope + '&rd=' + encodeURIComponent(rd);
       let wxOuthRedirectUrl = urlConfig.currenturl + '/oauth/wx/apply?appid=' + appid + '&scope=' + scope + '&rd=' + encodeURIComponent(rdUrl);
       this.ctx.status = 302;
       this.ctx.redirect(wxOuthRedirectUrl);
