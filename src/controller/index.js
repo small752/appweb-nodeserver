@@ -6,7 +6,7 @@ module.exports = class extends Base {
   }
 
   async getCacheAction() {
-    const data = await this.cache('name');
+    const data = await this.cache(this.get('key'));
     console.info('222222222', data);
     this.body = {
       errorCode: 9000,

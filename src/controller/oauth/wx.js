@@ -68,6 +68,8 @@ module.exports = class extends Base {
         create_time: new Date().getTime(),
       });
 
+      console.info('wxOauthCacheKey', wxOauthCacheKey);
+      
       this.ctx.type = 'text/html; charset=utf-8';
       this.body = '\
       <html>\
