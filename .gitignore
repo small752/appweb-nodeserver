@@ -62,3 +62,4 @@ typings/
 
 runtime/
 ./package-lock.json
+package-lock.json

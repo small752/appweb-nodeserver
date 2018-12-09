@@ -13,5 +13,10 @@ module.exports = {
       scope_base: 'snsapi_base',   //snsapi_base / snsapi_userinfo 
       scope_userinfo: 'snsapi_userinfo',   //snsapi_base / snsapi_userinfo 
     }
+  },
+  baidu: {
+    location: {
+      ak: 'zvuPbfmV5D96nPH1361ZUvPTGoABeKtQ'
+    }
   }
 }
