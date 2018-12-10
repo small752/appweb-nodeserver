@@ -39,8 +39,6 @@ module.exports = class extends Base {
         .update(JSON.stringify(hashObj))
         .digest('hex');
 
-      console.info('加密的hash', hashToken)
-
       res.data = {
         openid: codeTokenRes.openid,
         session_key: codeTokenRes.session_key,
