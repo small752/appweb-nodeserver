@@ -5,7 +5,7 @@ module.exports = class extends think.Controller {
 
   }
 
-  async _postJson(url, data) {
+  async _postJson(url, data={}) {
 
     let headers = {};
 
