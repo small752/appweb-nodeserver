@@ -44,7 +44,6 @@ module.exports = class extends Base {
       res.data = {
         openid: codeTokenRes.openid,
         session_key: codeTokenRes.session_key,
-        unionid: codeTokenRes.unionid,
         token: hashToken,
       }
     } else {
