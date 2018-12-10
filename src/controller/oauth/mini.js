@@ -25,7 +25,7 @@ module.exports = class extends Base {
       errorMessage: '微信临时授权码兑换失败',
     }
 
-    if(codeTokenRes && codeTokenRes.errcode == 0) {
+    if(codeTokenRes && codeTokenRes.openid && codeTokenRes.openid.length > 0) {
       res.errorCode = 9000;
       res.errorMessage = "微信临时授权码兑换成功";
 
