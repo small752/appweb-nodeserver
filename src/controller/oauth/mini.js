@@ -1,4 +1,5 @@
 const Base = require('../base.js');
+const crypto = require('crypto');
 
 /**
  * 星空小程序相关授权接口
@@ -27,10 +28,24 @@ module.exports = class extends Base {
     if(codeTokenRes && codeTokenRes.errcode == 0) {
       res.errorCode = 9000;
       res.errorMessage = "微信临时授权码兑换成功";
+
+      let hashObj = {
+        appid: appid,
+        openid: codeTokenRes.openid,
+      }
+      //  计算加密的token值
+      let hashToken = crypto
+        .createHmac('sha256', appsecret)
+        .update(JSON.stringify(hashObj))
+        .digest('hex');
+
+      console.info('加密的hash', hashToken)
+
       res.data = {
         openid: codeTokenRes.openid,
         session_key: codeTokenRes.session_key,
         unionid: codeTokenRes.unionid,
+        token: hashToken,
       }
     } else {
       console.info('微信临时授权码兑换结果', codeTokenRes)

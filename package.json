@@ -10,6 +10,7 @@
     "lint-fix": "eslint --fix src/"
   },
   "dependencies": {
+    "crypto": "^1.0.1",
     "form-data": "^2.3.3",
     "qs": "^6.5.2",
     "think-cache": "^1.0.0",
