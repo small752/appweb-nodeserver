@@ -1,5 +1,6 @@
 const Base = require('../base.js');
 const crypto = require('crypto');
+const path = require('path');
 
 /**
  * 星空小程序相关授权接口
@@ -49,6 +50,14 @@ module.exports = class extends Base {
     }
 
     this.body = res;
+  }
+
+  /**
+   * 小程序漂流瓶消息记录文件
+   */
+  async chatRecordFileAction() {
+    const filepath = path.join(think.ROOT_PATH, 'www/static/resources/chat-record.txt');
+    this.ctx.download(filepath);
   }
 
 };
