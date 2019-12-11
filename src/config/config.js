@@ -15,7 +15,7 @@ module.exports = {
     },
     wxmini: { //  xingkong微信小程序
       appid: 'wx1819c6e21846613a',
-      appsecret: '89b64757d5dcfc6254ad9090374272a4',
+      appsecret: '68bfb8a88dcfec0cfac8f31ad1f97343',
     }
   },
   baidu: {
